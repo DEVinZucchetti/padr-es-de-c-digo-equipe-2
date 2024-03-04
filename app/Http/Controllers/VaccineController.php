@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\VaccineRepository;
-use App\Models\Vaccine;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
