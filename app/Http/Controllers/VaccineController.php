@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\VaccineRepository;
 use App\Models\Vaccine;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
@@ -11,6 +12,13 @@ class VaccineController extends Controller
 {
 
     use HttpResponses;
+
+    private $vaccineRepository;
+
+    public function __construct(VaccineRepository $vaccineRepository)
+    {
+        $this->vaccineRepository = $vaccineRepository;
+    }
 
     public function store(Request $request)
     {
@@ -24,7 +32,7 @@ class VaccineController extends Controller
             // $vaccine = Vaccine::create([...$data, 'professional_id' => $request->user()->id ]);
 
 
-            $vaccine = Vaccine::create($data);
+            $vaccine = $this->vaccineRepository->create($data);
 
             return $vaccine;
         } catch (\Exception $exception) {
@@ -35,16 +43,7 @@ class VaccineController extends Controller
 
     public function index($id)
     {
-        try {
-
-            $vaccines = Vaccine::query()
-                ->where('pet_id', $id)
-                ->orderBy('date', 'desc')
-                ->get();
-
-            return $vaccines;
-        } catch (\Exception $exception) {
-            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
-        }
+        $vaccines = $this->vaccineRepository->getAllVaccinesForPet($id);
+        return $vaccines;
     }
 }

@@ -6,5 +6,5 @@ namespace App\Interfaces;
 interface VaccineRepositoryInterface
 {
     public function create(array $data);
-    public function getAll();
+    public function getAllVaccinesForPet($id);
 }
