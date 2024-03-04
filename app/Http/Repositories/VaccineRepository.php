@@ -2,9 +2,10 @@
 
 namespace App\Http\Repositories;
 
+use App\Interfaces\VaccineRepositoryInterface;
 use App\Models\Vaccine;
 
-class VaccineRepository
+class VaccineRepository implements VaccineRepositoryInterface
 {
     public function create(array $data)
     {
