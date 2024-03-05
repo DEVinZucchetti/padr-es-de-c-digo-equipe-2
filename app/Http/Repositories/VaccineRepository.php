@@ -20,16 +20,6 @@ class VaccineRepository implements VaccineRepositoryInterface
 
     public function getAllVaccinesForPet($id)
     {
-        try {
-
-            $vaccines = Vaccine::query()
-                ->where('pet_id', $id)
-                ->orderBy('date', 'desc')
-                ->get();
-
-            return $vaccines;
-        } catch (\Exception $exception) {
-            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
-        };
+        return Vaccine::find($id);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\Vaccine\CreateVaccineService;
 use App\Http\Services\Vaccine\GetAllVaccinesForPetService;
+use App\Models\Vaccine;
 use App\Traits\HttpResponses;
 
 use Illuminate\Http\Request;
@@ -34,7 +35,18 @@ class VaccineController extends Controller
 
     public function index($id, GetAllVaccinesForPetService $getAllVaccinesForPetService)
     {
-        $vaccines = $this->$getAllVaccinesForPetService->handle($id);
+        try {
+
+            $vaccines = Vaccine::query()
+                ->where('pet_id', $id)
+                ->orderBy('date', 'desc')
+                ->get();
+
+            return $vaccines;
+        } catch (\Exception $exception) {
+            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        };
+        $vaccines = $getAllVaccinesForPetService->handle($id);
         return $vaccines;
     }
 }
