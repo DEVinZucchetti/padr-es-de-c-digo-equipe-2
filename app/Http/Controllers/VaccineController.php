@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\Vaccine\CreateVaccineService;
+use App\Http\Services\Vaccine\GetAllVaccinesForPetService;
 use App\Traits\HttpResponses;
-use CreateVaccineService;
+
 use Illuminate\Http\Request;
+
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -29,9 +32,9 @@ class VaccineController extends Controller
     }
 
 
-    public function index($id)
+    public function index($id, GetAllVaccinesForPetService $getAllVaccinesForPetService)
     {
-        $vaccines = $this->vaccineRepository->getAllVaccinesForPet($id);
+        $vaccines = $this->$getAllVaccinesForPetService->handle($id);
         return $vaccines;
     }
 }
