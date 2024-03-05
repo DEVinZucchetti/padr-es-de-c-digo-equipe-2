@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateSpecieRequest;
+use App\Http\Services\Specie\CreateSpecieService;
 use App\Http\Services\Specie\GetAllSpecieService;
 use App\Models\Pet;
 use App\Models\Specie;
@@ -20,23 +22,16 @@ class SpecieController extends Controller
         return $species;
     }
 
-    public function store(Request $request)
+    public function store(CreateSpecieRequest $request, CreateSpecieService $createSpecieService)
     {
         try {
-            $request->validate([
-                'name' => 'required|string|unique:species|max:50'
-            ]);
-
-            $data = $request->all();
-
-            $space = Specie::create($data);
-
-            return $space;
-        } catch (Exception $exception) {
+            $body = $request->all();
+            $specie = $createSpecieService->handle($body);
+            return $specie;
+        } catch (\Exception $exception) {
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
-
 
     public function destroy($id)
     {
