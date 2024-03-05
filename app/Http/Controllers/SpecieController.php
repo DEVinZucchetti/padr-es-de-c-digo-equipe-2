@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\Specie\GetAllSpecieService;
 use App\Models\Pet;
 use App\Models\Specie;
 use App\Traits\HttpResponses;
@@ -13,9 +14,10 @@ class SpecieController extends Controller
 {
     use HttpResponses;
 
-    public function index() {
-        $spaces = Specie::all();
-        return $spaces;
+    public function index(GetAllSpecieService $getAllSpecieService)
+    {
+        $species = $getAllSpecieService->handle();
+        return $species;
     }
 
     public function store(Request $request)
@@ -36,18 +38,18 @@ class SpecieController extends Controller
     }
 
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $specie = Specie::find($id);
 
         $count = Pet::query()->where('specie_id', $id)->count();
 
-        if($count !== 0) return $this->error('Existem pets usando essa espécie', Response::HTTP_CONFLICT);
+        if ($count !== 0) return $this->error('Existem pets usando essa espécie', Response::HTTP_CONFLICT);
 
-        if(!$specie) return $this->error('Dado não encontrado', Response::HTTP_NOT_FOUND);
+        if (!$specie) return $this->error('Dado não encontrado', Response::HTTP_NOT_FOUND);
 
         $specie->delete();
 
         return $this->response('', Response::HTTP_NO_CONTENT);
     }
-
 }
