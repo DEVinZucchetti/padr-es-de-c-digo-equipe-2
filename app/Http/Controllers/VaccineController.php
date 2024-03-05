@@ -22,10 +22,13 @@ class VaccineController extends Controller
     public function store(CreateVaccineRequest $request, CreateVaccineService $createVaccineService)
     {
 
-        $body = $request->all();
+        try {
+            $body = $request->all();
 
-        $vaccine = $createVaccineService->handle($body);
-
+            $vaccine = $createVaccineService->handle($body);
+        } catch (\Exception $exception) {
+            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        };
         return $vaccine;
     }
 
