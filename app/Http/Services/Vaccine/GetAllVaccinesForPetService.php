@@ -12,7 +12,7 @@ class GetAllVaccinesForPetService
         $this->vaccineRepository = $vaccineRepository;
     }
 
-    public function handle(array $id)
+    public function handle($id)
     {
         return $this->vaccineRepository->getAllVaccinesForPet($id);
     }
