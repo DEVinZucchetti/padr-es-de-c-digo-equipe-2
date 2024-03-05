@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSpecieRequest;
+
 use App\Http\Services\Specie\CreateSpecieService;
 use App\Http\Services\Specie\DeleteOneSpecieService;
 use App\Http\Services\Specie\GetAllSpecieService;
-use App\Models\Pet;
-use App\Models\Specie;
+
 use App\Traits\HttpResponses;
-use Exception;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SpecieController extends Controller
@@ -33,9 +31,10 @@ class SpecieController extends Controller
             return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
-    public function destroy($id, DeleteOneSpecieService $DeleteOneSpecieService)
+
+    public function destroy($id, DeleteOneSpecieService $deleteOneSpecieService)
     {
-        $response = $DeleteOneSpecieService->delete($id);
+        $response = $deleteOneSpecieService->delete($id);
         return $response;
     }
 }

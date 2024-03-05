@@ -6,15 +6,15 @@ use App\Http\Repositories\SpecieRepository;
 
 class CreateSpecieService
 {
-    private $SpecieRepository;
+    private $specieRepository;
 
-    public function __construct(SpecieRepository $SpecieRepository)
+    public function __construct(SpecieRepository $specieRepository)
     {
-        $this->SpecieRepository = $SpecieRepository;
+        $this->specieRepository = $specieRepository;
     }
 
     public function handle(array $data)
     {
-        return $this->SpecieRepository->create($data);
+        return $this->specieRepository->create($data);
     }
 }

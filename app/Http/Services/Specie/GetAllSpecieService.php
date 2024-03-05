@@ -6,15 +6,15 @@ use App\Http\Repositories\SpecieRepository;
 
 class GetAllSpecieService
 {
-    private $SpecieRepository;
+    private $specieRepository;
 
-    public function __construct(SpecieRepository $SpecieRepository)
+    public function __construct(SpecieRepository $specieRepository)
     {
-        $this->SpecieRepository = $SpecieRepository;
+        $this->specieRepository = $specieRepository;
     }
 
     public function handle()
     {
-        return $this->SpecieRepository->getAll();
+        return $this->specieRepository->getAll();
     }
 }

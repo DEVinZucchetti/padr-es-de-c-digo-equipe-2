@@ -3,6 +3,7 @@
 namespace App\Http\Repositories;
 
 use App\Interfaces\SpecieRepositoryInterface;
+
 use App\Models\Specie;
 
 class SpecieRepository implements SpecieRepositoryInterface
@@ -22,9 +23,9 @@ class SpecieRepository implements SpecieRepositoryInterface
         return Specie::find($id);
     }
 
-    public function deleteOne(Specie $Specie)
+    public function deleteOne(Specie $specie)
     {
-        $Specie->delete();
-        return $Specie;
+        $specie->delete();
+        return $specie;
     }
 }
