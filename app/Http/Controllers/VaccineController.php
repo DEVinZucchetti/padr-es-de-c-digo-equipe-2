@@ -2,36 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\VaccineRepository;
 use App\Traits\HttpResponses;
+use CreateVaccineService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 
 class VaccineController extends Controller
 {
 
     use HttpResponses;
-
     private $vaccineRepository;
 
-    public function __construct(VaccineRepository $vaccineRepository)
-    {
-        $this->vaccineRepository = $vaccineRepository;
-    }
-
-    public function store(Request $request)
+    public function store(Request $request, CreateVaccineService $createVaccineService)
     {
         try {
 
-            $data = $request->all();
+            $body = $request->all();
 
-            // validar dados do body
-
-
-            // $vaccine = Vaccine::create([...$data, 'professional_id' => $request->user()->id ]);
-
-
-            $vaccine = $this->vaccineRepository->create($data);
+            $vaccine = $createVaccineService->handle($body);
 
             return $vaccine;
         } catch (\Exception $exception) {
