@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateVaccineRequest extends FormRequest
 {
+    protected $stopOnFirtsFailure = true;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -22,7 +24,13 @@ class CreateVaccineRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'professional_id' => 'required|integer',
+            'pet_id' => 'required|integer',
+            'dose' => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
+            'observations' => 'nullable|string',
+            'date' => 'required|date',
         ];
     }
 }

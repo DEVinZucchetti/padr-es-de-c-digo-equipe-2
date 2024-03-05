@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateVaccineRequest;
 use App\Http\Services\Vaccine\CreateVaccineService;
 use App\Http\Services\Vaccine\GetAllVaccinesForPetService;
 use App\Models\Vaccine;
@@ -18,18 +19,14 @@ class VaccineController extends Controller
     use HttpResponses;
     private $vaccineRepository;
 
-    public function store(Request $request, CreateVaccineService $createVaccineService)
+    public function store(CreateVaccineRequest $request, CreateVaccineService $createVaccineService)
     {
-        try {
 
-            $body = $request->all();
+        $body = $request->all();
 
-            $vaccine = $createVaccineService->handle($body);
+        $vaccine = $createVaccineService->handle($body);
 
-            return $vaccine;
-        } catch (\Exception $exception) {
-            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
-        }
+        return $vaccine;
     }
 
 
