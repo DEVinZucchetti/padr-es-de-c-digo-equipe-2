@@ -21,4 +21,10 @@ class SpecieRepository implements SpecieRepositoryInterface
     {
         return Specie::find($id);
     }
+
+    public function deleteOne(Specie $Specie)
+    {
+        $Specie->delete();
+        return $Specie;
+    }
 }
