@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Services\Vaccine;
+
 use App\Http\Repositories\VaccineRepository;
 
 class GetAllVaccinesForPetService
