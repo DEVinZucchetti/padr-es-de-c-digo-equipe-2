@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateVaccineRequest;
+
 use App\Http\Services\Vaccine\CreateVaccineService;
 use App\Http\Services\Vaccine\GetAllVaccinesForPetService;
-use App\Models\Vaccine;
-use App\Traits\HttpResponses;
 
-use Illuminate\Http\Request;
+use App\Models\Vaccine;
+
+use App\Traits\HttpResponses;
 
 use Symfony\Component\HttpFoundation\Response;
 
